@@ -21,6 +21,11 @@ const routes = [
     component: () => import('../views/Post/SinglePost.vue')
   },
   {
+    path: '/albums',
+    name: 'Albums',
+    component: () => import('../views/Albums.vue')
+  },
+  {
     path: '/photos',
     name: 'Photos',
     component: () => import('../views/Photos.vue')
@@ -34,10 +39,11 @@ const routes = [
     path: '/users',
     name: 'Users',
     component: () => import('../views/Users.vue')
-  },
+  }
 ]
 
 const router = new VueRouter({
+  mode: 'history',
   routes
 })
 
