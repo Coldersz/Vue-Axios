@@ -17,14 +17,24 @@ const routes = [
   },
   {
     path: '/posts/:id',
-    name: 'Posts',
+    name: 'SinglePosts',
     component: () => import('../views/Post/SinglePost.vue')
   },
   {
-    path: '/albums',
-    name: 'Albums',
-    component: () => import('../views/Album.vue')
-  }
+    path: '/photos',
+    name: 'Photos',
+    component: () => import('../views/Photos.vue')
+  },
+  {
+    path: '/todos',
+    name: 'Todos',
+    component: () => import('../views/Todos.vue')
+  },
+  {
+    path: '/users',
+    name: 'Users',
+    component: () => import('../views/Users.vue')
+  },
 ]
 
 const router = new VueRouter({
