@@ -23,6 +23,15 @@
         <li class="nav-item">
           <router-link class="nav-link" to="/albums">Albums</router-link>
         </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/photos">Photos</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/todos">Todos</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/users">Users</router-link>
+        </li>
       </ul>
     </div>
   </nav>
