@@ -1,0 +1,23 @@
+#!/usr/bin/env node
+const {Parser} = require("./scripts/core/parser");
+
+new Parser(process.argv);
+
+/**
+ * Usage:
+ *
+ * Generate a Vue Component:
+ * ```
+ * node action make-component [component-name]
+ * ```
+ *
+ * Generate a Vue View:
+ * ```
+ * node action make-view [view-name]
+ * ```
+ *
+ * Download DB:
+ * ```
+ * node action migrate
+ * ```
+ */
