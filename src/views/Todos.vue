@@ -15,8 +15,11 @@
                 <option value="100">100</option>
               </select>
             </div>
+            <AddTodo @add-todo="addTodo"></AddTodo>
           </div>
-          <Todos :item="todo" v-for="todo in todos" :key="todo.id" class="py-4 my-4" />
+          <div class="justify-content-between" :key="todo.id" v-for="todo in todos">
+            <Todos :item="todo" class="py-4 my-4" @del-todo="deleteTodo" />
+          </div>
         </div>
       </div>
     </div>
@@ -26,10 +29,12 @@
 <script>
 import Api from "@/services/api";
 import Todos from "@/components/Todo";
+import AddTodo from "@/components/AddTodo";
 
 export default {
   components: {
-    Todos
+    Todos,
+    AddTodo
   },
   data() {
     return {
@@ -40,15 +45,25 @@ export default {
   created() {
     this.fetchTodos();
   },
+  updated() {
+    console.log("Updated");
+  },
   methods: {
-    fetchTodos() {
-      Api({
-        method: "GET",
-        url: "/todos?_limit=" + this.limit
-      })
-        .then(({ data }) => (this.todos = data))
-        // .then(({ data }) => console.log(data))
-        .catch(({ err }) => console.log(err));
+    async fetchTodos() {
+      let response = await Api.get("/todos?_order=asc&_limit=" + this.limit);
+      this.todos = response.data;
+    },
+    async addTodo(newTodo) {
+      try {
+        let response = await Api.post("/todos", newTodo);
+        this.todos = [...this.todos, response.data];
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    deleteTodo(id) {
+      Api.delete(`/todos/${id}`);
+      this.todos = this.todos.filter(todo => todo.id !== id);
     }
   }
 };

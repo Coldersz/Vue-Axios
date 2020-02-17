@@ -44,14 +44,13 @@ export default {
   created() {
     this.fetchPhotos();
   },
+  updated() {
+    console.log("updated");
+  },
   methods: {
-    fetchPhotos() {
-      Api({
-        method: "GET",
-        url: "/photos?_limit=" + this.limit
-      })
-        .then(({ data }) => (this.photos = data))
-        .catch(({ err }) => console.log(err));
+    async fetchPhotos() {
+      let response = await Api.get("/photos?_limit=" + this.limit)
+      this.photos = response.data
     }
   }
 };
