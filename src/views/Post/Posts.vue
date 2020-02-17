@@ -16,7 +16,13 @@
               </select>
             </div>
           </div>
-          <Post :item="post" v-for="post in posts" :key="post.id" class="py-4 my-4" />
+          <Post
+            :item="post"
+            v-for="post in posts"
+            :key="post.id"
+            class="py-4 my-4"
+            @delete-post="deletePost"
+          />
         </div>
       </div>
     </div>
@@ -42,9 +48,22 @@ export default {
   },
   methods: {
     async fetchPosts() {
-      let response = await Api.get("/posts?_limit=" + this.limit);
+      try {
+        let { data } = await Api.get("/posts?_limit=" + this.limit);
 
-      this.posts = response.data;
+        this.posts = data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async deletePost(id) {
+      try {
+        await Api.delete("/posts/" + id);
+
+        this.posts = this.posts.filter(post => post.id !== id);
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 };
