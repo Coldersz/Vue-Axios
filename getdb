@@ -1,0 +1,8 @@
+#!/usr/bin/env python
+import subprocess
+
+_DB_URL = "https://jsonplaceholder.typicode.com/db"
+
+if __name__ == "__main__":
+    subprocess.call("curl {0} -o db.json".format(_DB_URL))
+    print("Database saved to db.json")
