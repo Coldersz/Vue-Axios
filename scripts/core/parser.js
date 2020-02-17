@@ -8,7 +8,7 @@ class Parser {
     const command = argv[2];
     const args = argv[3];
     if (command === undefined) {
-      console.log("Available commands: make-component, make-view, migrate");
+      console.log(this._defautMsg);
       return;
     }
 
@@ -25,8 +25,12 @@ class Parser {
 
       default:
         console.log("Unknown Command: " + command);
+        console.log(this._defautMsg);
         break;
     }
+  }
+  get _defautMsg() {
+    return "Available commands: make-component, make-view, migrate";
   }
 }
 

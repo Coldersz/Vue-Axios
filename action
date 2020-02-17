@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const {Parser} = require("./scripts/core/parser");
 
-new Parser(process.argv);
+return new Parser(process.argv);
 
 /**
  * Usage:
