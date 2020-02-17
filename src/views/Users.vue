@@ -32,18 +32,10 @@ export default {
   created() {
     this.fetchUsers();
   },
-  updated() {
-    console.log("updated");
-  },
   methods: {
-    fetchUsers() {
-      Api({
-        method: "GET",
-        url: "/users"
-      })
-        .then(({ data }) => (this.users = data))
-        // .then( ({data}) => console.log(data) )
-        .catch(({ err }) => console.log(err));
+    async fetchUsers() {
+      let response = await Api.get("/users")
+      this. users = response.data
     }
   }
 };
