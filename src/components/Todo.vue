@@ -8,8 +8,8 @@
       </div>
     </div>
     <form class="container" method="post" v-show="edit" @submit.prevent="update(item)">
-      <div class="">
-        <input type="hidden" v-model="item.id">
+      <div class>
+        <input type="hidden" v-model="item.id" />
         <input type="text" class="form-control" v-model="item.title" />
         <button type="submit" class="btn btn-info mt-2">Edit</button>
       </div>
@@ -30,7 +30,7 @@ export default {
     };
   },
   created() {
-    this.load()
+    this.load();
   },
   props: {
     item: {
@@ -43,21 +43,30 @@ export default {
       this.check = !this.check;
     },
     load() {
-      Api.get('/todos/')
-      .then(res => this.todos = res.data)
+      Api.get("/todos/").then(res => (this.todos = res.data));
     },
     change() {
-      this.edit = true
+      this.edit = true;
     },
-    update() {
-      Api.patch('/todos/' + this.item.id, {title: this.item.title})
-      .then( () => {
-      this.load()
-      this.check = false
-      this.edit = false
-      }).catch((err)=>{
-        console.error(err)
-      })
+    async update() {
+      try {
+      let response = await Api.patch("/todos/" + this.item.id, { title: this.item.title });
+          this.load();
+          this.check = false;
+          this.edit = false;
+          return response
+      } catch (err) {
+        console.error(err);
+        
+      }
+        // .then(() => {
+        //   this.load();
+        //   this.check = false;
+        //   this.edit = false;
+        // })
+        // .catch(err => {
+        //   console.error(err);
+        // });
     }
   }
 };

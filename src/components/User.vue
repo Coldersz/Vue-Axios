@@ -6,9 +6,8 @@
       </h4>
       <p>Name : {{item.name}}</p>
       <p>Username : {{item.username}}</p>
-      <p>Phone : {{item.phone}}</p>
       <p>Email : {{item.email}}</p>
-      <p>Website : {{item.website}}</p>
+      <p>Password : {{item.password}}</p>
     </div>
   </div>
 </template>
