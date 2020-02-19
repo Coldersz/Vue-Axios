@@ -1,25 +1,28 @@
 <template>
   <div class="container">
-    <Reg @add-user="addUser"></Reg>
+    <RegisterForm @add-user="addUser"></RegisterForm>
   </div>
 </template>
 
 <script>
 // import Api from "@/services/api"
-import Reg from "@/components/RegisterForm";
-import User from "@/services/register";
+import RegisterForm from "@/components/RegisterForm";
+import User from "@/services/auth";
 
 export default {
   data() {
     return {};
   },
   components: {
-    Reg
+    RegisterForm
   },
   methods: {
     async addUser(newUser) {
       let response = await User.register(newUser);
-      return response;
+
+      if (response.data.status === "success") {
+        this.$router.push("/login");
+      }
     }
   }
 };

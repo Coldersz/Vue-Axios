@@ -32,17 +32,33 @@
         <li class="nav-item">
           <router-link class="nav-link" to="/users">Users</router-link>
         </li>
-        <li class="nav-item">
-          <router-link class="nav-link" to="/register">Register</router-link>
-        </li>
+        <li class="nav-item"></li>
       </ul>
+      <div v-if="!token" class="d-flex">
+        <router-link class="nav-link" to="/login">Login</router-link>
+        <router-link class="nav-link" to="/register">Register</router-link>
+      </div>
+      <button class="nav-link btn btn-danger" @click="logout" v-else>Logout</button>
     </div>
   </nav>
 </template>
 
 <script>
+import Auth from "@/services/auth";
+
 export default {
-  name: "Navbar"
+  name: "Navbar",
+  data() {
+    return {
+      token: localStorage.getItem("token")
+    };
+  },
+  methods: {
+    logout() {
+      Auth.logout();
+      this.$router.push("/login");
+    }
+  }
 };
 </script>
 

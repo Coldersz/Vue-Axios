@@ -1,13 +1,18 @@
 <template>
   <center>
-    <div class="card  col-6 mt-lg-5 shadow-lg">
+    <div class="card col-6 mt-lg-5 shadow-lg">
       <h1 class="my-5">Register</h1>
-      <form @submit="addUser">
+      <form @submit.prevent="addUser">
         <div class="form-group">
-          <input type="text" v-model="name" class="form-control col-8" placeholder="Name" />
-          <input type="text" v-model="username" class="form-control col-8" placeholder="Username" />
-          <input type="text" v-model="email" class="form-control col-8" placeholder="Email" />
-          <input type="password" v-model="password" class="form-control col-8" placeholder="Password" />
+          <input type="text" class="form-control col-8" placeholder="Name" v-model="name" />
+          <input type="text" class="form-control col-8" placeholder="Username" v-model="username" />
+          <input type="text" class="form-control col-8" placeholder="Email" v-model="email" />
+          <input
+            type="password"
+            class="form-control col-8"
+            placeholder="Password"
+            v-model="password"
+          />
           <button type="submit" class="btn btn-primary mt-5 px-3">Register</button>
         </div>
       </form>
@@ -27,8 +32,7 @@ export default {
     };
   },
   methods: {
-    addUser(e) {
-      e.preventDefault();
+    addUser() {
       const newUser = {
         name: this.name,
         username: this.username,
@@ -36,10 +40,6 @@ export default {
         password: this.password
       };
       this.$emit("add-user", newUser);
-      this.name = "";
-      this.username = "";
-      this.email = "";
-      this.password = "";
     }
   }
 };
@@ -47,6 +47,6 @@ export default {
 
 <style scoped>
 input {
-    margin-top: 15px;
+  margin-top: 15px;
 }
 </style>
