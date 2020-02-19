@@ -45,12 +45,9 @@ export default {
   created() {
     this.fetchTodos();
   },
-  updated() {
-    console.log("Updated");
-  },
   methods: {
     async fetchTodos() {
-      let response = await Api.get("/todos?_order=asc&_limit=" + this.limit);
+      let response = await Api.get("/todos/?_sort=title&_limit=" + this.limit);
       this.todos = response.data;
     },
     async addTodo(newTodo) {

@@ -1,19 +1,36 @@
 <template>
   <div class="card show shadow">
-    <div class="card-body justify-content-between d-flex"  @click='markComplete'>
-        <div :class="{'is-completed': check}">{{item.title}}</div>
-        <button @click="$emit('del-todo', item.id)" class="btn btn-danger">Delete</button>
+    <div class="card-body justify-content-between d-flex" @click="markComplete">
+      <div :class="{'is-completed': check}" v-show="!edit">{{item.title}}</div>
+      <div>
+        <button @click="change" class="btn btn-info mr-2" v-show="!edit">Edit</button>
+        <button @click="$emit('del-todo', item.id)" class="btn btn-danger" v-show="!edit">Delete</button>
+      </div>
     </div>
+    <form class="container" method="post" v-show="edit" @submit.prevent="update(item)">
+      <div class="">
+        <input type="hidden" v-model="item.id">
+        <input type="text" class="form-control" v-model="item.title" />
+        <button type="submit" class="btn btn-info mt-2">Edit</button>
+      </div>
+    </form>
   </div>
 </template>
 
 <script>
+import Api from "@/services/api";
+
 export default {
   name: "Todo",
   data() {
     return {
-      check: false
-    }
+      check: false,
+      edit: false,
+      todos: null
+    };
+  },
+  created() {
+    this.load()
   },
   props: {
     item: {
@@ -23,14 +40,31 @@ export default {
   },
   methods: {
     markComplete() {
-      this.check = !this.check
+      this.check = !this.check;
+    },
+    load() {
+      Api.get('/todos/')
+      .then(res => this.todos = res.data)
+    },
+    change() {
+      this.edit = true
+    },
+    update() {
+      Api.patch('/todos/' + this.item.id, {title: this.item.title})
+      .then( () => {
+      this.load()
+      this.check = false
+      this.edit = false
+      }).catch((err)=>{
+        console.error(err)
+      })
     }
   }
 };
 </script>
 
 <style scoped>
-  .is-completed {
-    text-decoration: line-through;
-  }
+.is-completed {
+  text-decoration: line-through;
+}
 </style>
