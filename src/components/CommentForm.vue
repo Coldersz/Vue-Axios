@@ -2,34 +2,6 @@
   <div>
     <form method="post" @submit.prevent="validate">
       <div class="form-group">
-        <label for="name">Your Name</label>
-        <input
-          type="text"
-          name="name"
-          id="name"
-          class="form-control"
-          :class="{'is-invalid': !name.is_valid}"
-          placeholder
-          aria-describedby="helpId"
-          v-model="name.data"
-        />
-        <small id="helpId" class="text-muted">John Doe</small>
-      </div>
-      <div class="form-group">
-        <label for="name">Your Email</label>
-        <input
-          type="text"
-          name="email"
-          id="name"
-          class="form-control"
-          :class="{'is-invalid': !email.is_valid}"
-          placeholder
-          aria-describedby="helpId"
-          v-model="email.data"
-        />
-        <small id="helpId" class="text-muted">example@gmail.com</small>
-      </div>
-      <div class="form-group">
         <label for="body">Comment</label>
         <textarea
           name="body"
@@ -58,43 +30,31 @@ export default {
   },
   data() {
     return {
-      name: {
-        data: "",
-        is_valid: true
-      },
-      email: {
-        data: "",
-        is_valid: true
-      },
       body: {
         data: "",
-        is_valid: true
+        isValid: true
       }
     };
   },
   methods: {
     validate() {
-      for (const values of Object.values(this.$data)) {
-        if (values.data.length <= 0) {
-          values.is_valid = false;
-          return;
-        }
+      if (this.body.data.length <= 0) {
+        this.body.isValid = false;
+        return;
       }
 
       const data = {
         postId: this.postId,
-        name: this.name.data,
-        email: this.email.data,
+        name: localStorage.getItem("name"),
+        email: localStorage.getItem("email"),
         body: this.body.data
       };
 
       this.$emit("add-comment", data);
 
       // Resets the comment form
-      for (const values of Object.values(this.$data)) {
-        values.data = "";
-        values.is_valid = true;
-      }
+      this.body.data = "";
+      this.body.isValid = true;
     }
   }
 };

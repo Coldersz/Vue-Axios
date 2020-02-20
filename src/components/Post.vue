@@ -46,7 +46,6 @@
 
 <script>
 import Api from "@/services/api";
-import String from "../utils/string";
 
 export default {
   name: "Post",
@@ -61,8 +60,8 @@ export default {
       comments: null,
       newComment: {
         postId: this.item.id,
-        name: String.random(),
-        email: String.email(),
+        name: localStorage.getItem("name"),
+        email: localStorage.getItem("email"),
         body: ""
       }
     };
