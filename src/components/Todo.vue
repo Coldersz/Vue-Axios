@@ -57,16 +57,7 @@ export default {
           return response
       } catch (err) {
         console.error(err);
-        
       }
-        // .then(() => {
-        //   this.load();
-        //   this.check = false;
-        //   this.edit = false;
-        // })
-        // .catch(err => {
-        //   console.error(err);
-        // });
     }
   }
 };

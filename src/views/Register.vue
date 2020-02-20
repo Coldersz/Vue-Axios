@@ -5,7 +5,6 @@
 </template>
 
 <script>
-// import Api from "@/services/api"
 import Reg from "@/components/RegisterForm";
 import User from "@/services/register";
 

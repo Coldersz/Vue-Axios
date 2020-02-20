@@ -6,7 +6,7 @@
         <div class="form-group">
           <input type="text" v-model="name" class="form-control col-8" placeholder="Name" />
           <input type="text" v-model="username" class="form-control col-8" placeholder="Username" />
-          <input type="text" v-model="email" class="form-control col-8" placeholder="Email" />
+          <input type="email" v-model="email" class="form-control col-8" placeholder="Email" />
           <input type="password" v-model="password" class="form-control col-8" placeholder="Password" />
           <button type="submit" class="btn btn-primary mt-5 px-3">Register</button>
         </div>

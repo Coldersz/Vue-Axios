@@ -7,7 +7,6 @@
             <div class="mt-3">
               <h1>Users</h1>
             </div>
-            <!-- <Reg @add-user=addUser></Reg> -->
             <UserCard :item="user" v-for="user in users" :key="user.id" class="py-4 my-4" />
           </div>
         </div>
@@ -19,12 +18,10 @@
 <script>
 import Api from "@/services/api";
 import UserCard from "@/components/User";
-// import Reg from "@/components/RegisterForm";
 
 export default {
   components: {
     UserCard
-    // Reg
   },
   data() {
     return {
@@ -39,9 +36,7 @@ export default {
     async fetchUsers() {
       let response = await Api.get("/users");
       this.users = response.data;
-    },
-    
-    
+    }
   }
 };
 </script>
