@@ -11,17 +11,27 @@ import User from "@/services/auth";
 
 export default {
   data() {
-    return {};
+    return {
+    };
   },
   components: {
     RegisterForm
   },
+  updated() {
+    console.log("Updated");
+  },
   methods: {
     async addUser(newUser) {
-      let response = await User.register(newUser);
+      try {
+        let response = await User.register(newUser);
 
-      if (response.data.status === "success") {
-        this.$router.push("/login");
+        if (response.status === "success") {
+          this.$router.push("/login");
+        } else {
+          console.log("test");
+        }
+      } catch (err) {
+        console.error(err);
       }
     }
   }
